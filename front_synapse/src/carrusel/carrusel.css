@@ -1,0 +1,83 @@
+.swiper-wrapper{
+   
+    align-items: center; 
+
+}
+
+.swiper-slide{
+    text-align: center;
+}
+.swiper {
+  margin-top:10vh ;
+  width: 99vw;
+  height: fit-content;
+  z-index: 0;
+}
+
+
+.banner-center{
+    
+    height: 90vh;
+}
+
+.banner-center > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    padding: 50px;
+}
+
+.banner-center > div > button{
+    width: 20vw;
+}
+
+.colaborador{
+    align-content: center;
+    align-items: center;
+    
+}
+
+
+
+.colaboradores{
+    margin: 50px 0px;
+    padding: 30px 0px 50px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: blueviolet;
+}
+
+
+.banner-principal{
+    background-image: url('../assets/banner-home.png');
+    background-size: cover;      /* cubre todo el div */
+    background-position: center; /* centra la imagen */
+    background-repeat: no-repeat;
+    
+}
+
+.banner-promociones{
+    background-image: url('../assets/banner-app.png');
+    background-size: cover;      /* cubre todo el div */
+    background-position: center; /* centra la imagen */
+    background-repeat: no-repeat;
+    
+}
+
+.banner-informacion{
+    background-image: url('../assets/banner-sostenibilidad.png');
+    background-size: cover;      /* cubre todo el div */
+    background-position: center; /* centra la imagen */
+    background-repeat: no-repeat;
+    
+}
+
+.banner-profesional{
+    background-image: url('../assets/banner-profesional.png');
+    background-size: cover;      /* cubre todo el div */
+    background-position: center; /* centra la imagen */
+    background-repeat: no-repeat;
+}
