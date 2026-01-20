@@ -25,7 +25,7 @@ function App() {
       <main>
               <Routes>
                 {/* CAMBIO CLAVE: Usamos el componente Home, NO el componente App */}
-                <Route path="/" element={<Home/>} /> 
+                <Route path="/" element={<Home />} /> 
                 <Route path="/productos" element={<Productos />} />
                 <Route path="/trabaja-con-nosotros" element={<TrabajaConNosotros />} />
                 <Route path="/suscripcion" element={<Suscripcion />} />
