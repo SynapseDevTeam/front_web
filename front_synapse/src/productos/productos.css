@@ -14,6 +14,7 @@
   display: flex;       
   min-height: 100vh;   
   width: 100%;
+  margin-top: 15vh;
 }
 
 /* 
@@ -78,9 +79,10 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: -20px;
+  margin-top: 10vh;
   margin-bottom: 40px;
   border:none;
+  background: none;
 }
 
 .search-bar {
@@ -92,7 +94,7 @@
   padding: 5px 15px;
   border: 2px solid #000;
   border-radius: 50px;
-  background-color: white;
+  
 }
 
 .search-bar:focus-within {
