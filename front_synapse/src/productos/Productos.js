@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './productos.css';
-import iconoBusqueda from './search.svg'; 
+import iconoBusqueda from '../assets/search.svg'; 
 import imagen from './imgLavadora.jpg';
 
 
@@ -34,6 +34,7 @@ const [productos] = useState([
             <p>Hogar</p>
         </div>
 
+{/* MIRAR A VER SI LO PUEDO HACER CON UNA CLASE  */}
         <div className="filtro-grupo">
             <h4>Conectividad</h4>
             <label style={{display: 'block', marginBottom: '5px'}}>

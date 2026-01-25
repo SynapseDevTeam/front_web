@@ -6,7 +6,7 @@ import Productos from './productos/Productos';
 import TrabajaConNosotros from './trabaja_con_nosotros/TrabajaConNosotros';
 import Suscripcion from './suscripcion/Suscripcion';
 import Sesion from './sesion/Sesion';
-import logo from './Logo-Synapse.png';
+import logo from './assets/Logo-Synapse.png';
 function App() {
   return (
    <div className="App">

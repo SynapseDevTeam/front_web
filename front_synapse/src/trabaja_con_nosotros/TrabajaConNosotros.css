@@ -1,0 +1,101 @@
+
+.banner-inicio{
+    background-image: url('../assets/banner-profesional.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    height: 500px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white; 
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+
+
+.pagina-contacto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f7f6;
+    padding: 50px;
+}
+
+/* divide el contenido en dos columnas */
+.contenedor-principal {
+    display: flex;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    max-width: 1100px;
+    width: 90%;
+    gap: 40px;
+    padding-right: 20px;
+}
+
+/* Columna del formulario */
+.seccion-formulario {
+    flex: 0.7;
+    padding: 40px;
+}
+
+.formulario h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.grupo-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.grupo-input label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.grupo-input input, 
+.grupo-input textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;            /* Quitamos el borde azul que pone Windows por defecto */
+}
+
+/*al pulsar se cambie a morado */
+.grupo-input input:focus, 
+.grupo-input textarea:focus {
+    border-color: #8a44ad;  
+    box-shadow: 0 0 5px rgba(138, 68, 173, 0.2); 
+}
+
+.boton-enviar {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Columna de la imagen */
+.seccion-imagen {
+    flex: 1;
+    display: flex;
+}
+
+.seccion-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: auto; 
+}
