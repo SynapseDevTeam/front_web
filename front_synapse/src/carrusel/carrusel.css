@@ -52,31 +52,49 @@
 
 
 .banner-principal{
-    background-image: url('../assets/banner-home.png');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                      url('../assets/banner-home.png');
     background-size: cover;      /* cubre todo el div */
     background-position: center; /* centra la imagen */
     background-repeat: no-repeat;
     
 }
 
-.banner-promociones{
-    background-image: url('../assets/banner-app.png');
-    background-size: cover;      /* cubre todo el div */
-    background-position: center; /* centra la imagen */
+.banner-promociones {
+    /* Agregamos el degradado ANTES de la url de la imagen */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                      url('../assets/banner-app.png');
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
-    
+    height: 500px; /* Asegúrate de que tenga altura */
 }
 
 .banner-informacion{
-    background-image: url('../assets/banner-sostenibilidad.png');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                      url('../assets/banner-sostenibilidad.png');
     background-size: cover;      /* cubre todo el div */
     background-position: center; /* centra la imagen */
     background-repeat: no-repeat;
     
 }
 
+.banner-article{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    border-radius: 25px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.26);
+    color: white;
+    height: 70%;
+    width: 40%;
+}
+
 .banner-profesional{
-    background-image: url('../assets/banner-profesional.png');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                      url('../assets/banner-profesional.png');
     background-size: cover;      /* cubre todo el div */
     background-position: center; /* centra la imagen */
     background-repeat: no-repeat;

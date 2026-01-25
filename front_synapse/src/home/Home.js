@@ -5,30 +5,38 @@ import logoPrueba from '../Logo-Synapse.png'
 const Home = () => {
     const slidersBanner=[
       <div className='banner-principal'>
-       <h2>El Hogar del Futuro. Hoy.</h2>
-       <p>Synapse es el sistema operativo inteligente que transforma la gestión de tu vivienda, creando un futuro donde la eficiencia y la proactividad son la nueva normalidad.</p>
-        <button className='btn btn-info'>Descubre la Inteligencia de tu Hogar</button>
+        <div className='banner-article'>
+          <h2>El Hogar del Futuro. Hoy.</h2>
+          <p>Synapse es el sistema operativo inteligente que transforma la gestión de tu vivienda, creando un futuro donde la eficiencia y la proactividad son la nueva normalidad.</p>
+          <button className='btn btn-info'>Descubre la Inteligencia de tu Hogar</button>
+        </div>
       </div>,
       <div className='banner-promociones'>
-        <h2>Anticípate a los problemas antes de que ocurran.</h2>
-       <p>Creamos un "gemelo digital" de tu vivienda para monitorizar el estado de tus electrodomésticos y avisarte antes de cualquier fallo potencial.</p>
-        <button className='btn btn-edit'>Ver cómo funciona</button>
+        <div className='banner-article'>
+          <h2>Anticípate a los problemas antes de que ocurran.</h2>
+          <p>Creamos un "gemelo digital" de tu vivienda para monitorizar el estado de tus electrodomésticos y avisarte antes de cualquier fallo potencial.</p>
+          <button className='btn btn-edit'>Ver cómo funciona</button>
+        </div>
       </div>,
       <div className='banner-informacion'>
-        <h2>Más vida para tus aparatos, menos huella para el planeta.</h2>
-        <p>Prolongamos la vida útil de tus sistemas y optimizamos el consumo de energía para reducir los residuos electrónicos y las emisiones.</p>
-        <button className='btn btn-delete'>Conoce nuestro Marketplace</button>
+        <div className='banner-article'>
+          <h2>Más vida para tus aparatos, menos huella para el planeta.</h2>
+          <p>Prolongamos la vida útil de tus sistemas y optimizamos el consumo de energía para reducir los residuos electrónicos y las emisiones.</p>
+          <button className='btn btn-delete'>Conoce nuestro Marketplace</button>
+        </div>
       </div>,
       <div className='banner-profesional'>
-        <h2>Reparaciones inteligentes, diagnósticos exactos.</h2>
-        <p>Enviamos a técnicos cualificados con un diagnóstico previo de la avería, ahorrándote tiempo, dinero y desplazamientos innecesarios.</p>
-        <button className='btn btn-delete'>Conoce nuestro Marketplace</button>
+        <div className='banner-article'>
+          <h2>Reparaciones inteligentes, diagnósticos exactos.</h2>
+          <p>Enviamos a técnicos cualificados con un diagnóstico previo de la avería, ahorrándote tiempo, dinero y desplazamientos innecesarios.</p>
+          <button className='btn btn-delete'>Conoce nuestro Marketplace</button>
+        </div>
       </div>
     ]
     return (
     <>
     <Carrusel listaSlides={slidersBanner}/>
-    <div className='bienvenida'>
+    <div className='banner-intro'>
       <div>
         <h1>
           Synapse
@@ -55,7 +63,7 @@ const Home = () => {
           <p>Gratis</p>
         </div>
       </div>
-      <button>Ver Más</button>
+      <button className='btn btn-descarga'>Ver Más</button>
     </div>
 
     <div className='informacion'>
