@@ -1,6 +1,6 @@
 import './home.css';
 import Carrusel from '../carrusel/Carrusel';
-import logoPrueba from '../Logo-Synapse.png'
+import logoPrueba from '../assets/Logo-Synapse.png'
 {/**AQUI ES COMO SI FUERA EL INDEX HTML DE INICIO*/}
 const Home = () => {
     const slidersBanner=[
