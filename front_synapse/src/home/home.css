@@ -20,6 +20,14 @@
     padding: 50px 0px;
 }
 
+.banner-intro{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid black;
+    height: 15vh;
+}
+
 .planes{
     
     display: flex;
