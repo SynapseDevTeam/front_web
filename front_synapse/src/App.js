@@ -1,4 +1,4 @@
-
+import React, { useState } from 'react';
 import './App.css';
 import Home from './home/Home';
 import {Link, Route, Routes} from 'react-router-dom';
@@ -9,7 +9,9 @@ import Sesion from './sesion/Sesion';
 import logo from './assets/Logo-Synapse.png';
 import ChatBot from './chatBot/ChatBot';
 import Login from './login_registro/Login';
+
 function App() {
+  const[estaAutenticado,setEstaAutenticado]=useState(false);
   return (
    <div className="App">
     <header>
@@ -20,14 +22,29 @@ function App() {
                 <Link to="/productos" className='btn-menu'>Productos</Link>
                 <Link to="/trabaja-con-nosotros" className='btn-menu'>Trabaja Con Nosotros</Link>
                 <Link to="/suscripcion" className='btn-menu'>Suscripcion</Link>
-                <div>
-                <button className='btn'><Link to="/sesion" className='btn-menu'>Iniciar sesion</Link></button>
+{!estaAutenticado ? (
+            // Si NO está autenticado, muestra los botones de acceso
+            <div className="auth-buttons">
+              <button className='btn'>
+                <Link to="/sesion" className='btn-menu'>Iniciar sesion</Link>
+              </button>
+              <button className='btn'>
+                <Link to="/login" className='btn-menu'>Registrarse</Link>
+              </button>
+            </div>
+          ) : (
 
-                <button className='btn'><Link to="/Login" className='btn-menu'>Registrarse</Link></button>
-                </div>
-
+            <div className="iconoUsuario">
+              <span title="Perfil" style={{ marginRight: '10px', cursor: 'pointer' }}>
+                👤 Mi perfil
+              </span> 
+              <button className="btn-salir" onClick={() => setEstaAutenticado(false)}>
+                Salir
+              </button>
+            </div>
+          )}
         </nav>
-    </header>
+      </header>
      
       <main>
               <Routes>
@@ -36,8 +53,8 @@ function App() {
                 <Route path="/productos" element={<Productos />} />
                 <Route path="/trabaja-con-nosotros" element={<TrabajaConNosotros />} />
                 <Route path="/suscripcion" element={<Suscripcion />} />
-                <Route path="/sesion" element={<Sesion />} />
-                <Route path="/login" element={<Login paginaLogin={true} />} />
+                <Route path="/sesion" element={<Login iniciarEnLogin={true} alEntrar={() => setEstaAutenticado(true)} />} />
+                <Route path="/login" element={<Login iniciarEnLogin={false} alEntrar={() => setEstaAutenticado(true)} />} />
               </Routes>
             </main>
 
