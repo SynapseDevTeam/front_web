@@ -41,7 +41,7 @@ const Home = () => {
         <h1>
           Synapse
         </h1>
-        <p>lorem ipsum lorep lsadkasfkla fkdsnflsdf  fdklsjfnsj dlfnsd fklamdkfksd m klakmnl sf nalk akln anf</p>
+        <p>En Synapse, creemos que tu hogar debería cuidarte a ti, y no al revés. Nacimos con la misión de eliminar la incertidumbre y el estrés de las averías domésticas. Combinando inteligencia artificial y tecnología de gemelos digitales, transformamos casas convencionales en hogares predictivos que te avisan antes de que algo falle, ahorrándote tiempo, dinero y preocupaciones.</p>
       </div>
       <img src={logoPrueba} className='logo-cabecera'></img>
     </div>
@@ -63,54 +63,63 @@ const Home = () => {
           <p>Gratis</p>
         </div>
       </div>
+      <p>Elige el plan que mejor se adapte a las necesidades de tu hogar y empieza a ahorrar tiempo y dinero con el mantenimiento inteligente de Synapse.</p>
       <button className='btn btn-descarga'>Ver Más</button>
     </div>
 
     <div className='informacion'>
       <div className='lateral-grid'>
         <div>
-          uso de ia
+          <h3>Gemelo Digital (Digital Twin):</h3>
+          Crea un modelo virtual de tu hogar escaneando facturas y etiquetas de electrodomésticos.
         </div>
         <div>
-          uso de ia
+          <h3>Motor de IA Predictiva:</h3>
+          Cruza tus datos con bases de datos masivas para aprender el comportamiento normal y predecir fallos.
         </div>
         <div>
-          uso de ia
+          <h3>Integración Sensorial:</h3>
+          Conexión opcional con sensores y APIs para una precisión máxima en el diagnóstico en tiempo real.
         </div>
         <div>
-          uso de ia
+          <h3>Dashboard de Salud:</h3>
+          Visualiza el estado de tu hogar y la vida útil de cada aparato con códigos de color intuitivos.
         </div>
       </div>
 
       <div className='portada-info'>
         <img src={logoPrueba} className='logo-cabecera'></img>
-        <button>Ver Más</button>
+        <button className='btn btn-descarga'>Ver Más</button>
       </div>
 
       <div className='lateral-grid'>
         <div>
-          uso de ia
+          <h3>Alertas Proactivas:</h3>
+          Recibe avisos detallados sobre aumentos de consumo o anomalías antes de que ocurra una avería.
         </div>
         <div>
-          uso de ia
+          <h3>Diagnóstico por AR:</h3>
+          Instrucciones visuales sobre la cámara de tu móvil para realizar comprobaciones técnicas tú mismo.
         </div>
         <div>
-          uso de ia
+          <h3>Técnicos Optimizados:</h3>
+          Conecta con profesionales que reciben el diagnóstico previo de la IA para ahorrar tiempo y costes.
         </div>
         <div>
-          uso de ia
+          <h3>Bóveda Digital:</h3>
+          Centraliza y protege todas tus garantías, manuales, facturas e historiales de reparación en un toque.
         </div>
       </div>
     </div>
 
     <div className='trabaja-con-nosotros'>
       <h3>Trabaja con nosotros</h3>
-      <p>¿quieres trabajar con nosotros? contactanos por el correo electronico synapsetech@gmail.com o por el formulario</p>
-      <button>Ver Más</button>
+      <p>¿quieres trabajar con nosotros? contactanos por el correo electronico <strong>synapsetech@gmail.com</strong> o por el formulario</p>
+      <button className='btn btn-edit'>Ver Más</button>
     </div>
     <div className='colaboradores'>
       <h3>Colaboradores</h3>
-      <Carrusel slidesPerView={4} colab={true} delay={1500}/>
+      <Carrusel slidesPerView={6} colab={true} delay={1500}/>
     </div>
     </>
 

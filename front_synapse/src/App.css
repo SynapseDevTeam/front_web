@@ -1,6 +1,7 @@
 *{
   padding: 0;
   margin: 0;
+  line-height: 2;
 }
 
 /*ESTILOS HEADER*/
@@ -44,7 +45,7 @@ header nav{
 .footer-top{
   padding: 2vw;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .logo-footer{
@@ -76,6 +77,16 @@ flex-direction: column;
   list-style: none;
 }
 /*FIN ESTILOS FOOTER*/
+
+nav  div{
+  display: flex;
+  justify-content: space-between;
+  width: 20vw;
+}
+
+nav  div .btn{
+  width: 9vw;
+}
 
 .btn{
     border-radius: 50px;
