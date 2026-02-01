@@ -7,11 +7,8 @@ import TrabajaConNosotros from './trabaja_con_nosotros/TrabajaConNosotros';
 import Suscripcion from './suscripcion/Suscripcion';
 import Sesion from './sesion/Sesion';
 import logo from './assets/Logo-Synapse.png';
-<<<<<<< HEAD
-import Login from './login_registro/Login';
-=======
 import ChatBot from './chatBot/ChatBot';
->>>>>>> origin/test
+import Login from './login_registro/Login';
 function App() {
   return (
    <div className="App">
@@ -23,17 +20,12 @@ function App() {
                 <Link to="/productos" className='btn-menu'>Productos</Link>
                 <Link to="/trabaja-con-nosotros" className='btn-menu'>Trabaja Con Nosotros</Link>
                 <Link to="/suscripcion" className='btn-menu'>Suscripcion</Link>
-<<<<<<< HEAD
-                <Link to="/sesion" className='btn-menu'>Inicio de sesion</Link>
-                <Link to="/login" className='btn-menu'>Login</Link>
-=======
                 <div>
                 <button className='btn'><Link to="/sesion" className='btn-menu'>Iniciar sesion</Link></button>
 
-                <button className='btn'><Link to="/sesion" className='btn-menu'>Registrarse</Link></button>
+                <button className='btn'><Link to="/Login" className='btn-menu'>Registrarse</Link></button>
                 </div>
 
->>>>>>> origin/test
         </nav>
     </header>
      
@@ -45,7 +37,7 @@ function App() {
                 <Route path="/trabaja-con-nosotros" element={<TrabajaConNosotros />} />
                 <Route path="/suscripcion" element={<Suscripcion />} />
                 <Route path="/sesion" element={<Sesion />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login paginaLogin={true} />} />
               </Routes>
             </main>
 

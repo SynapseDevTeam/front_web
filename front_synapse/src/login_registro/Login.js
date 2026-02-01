@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './Login.css';
 
-const Login = () => {
-  const [isLogin, setIsLogin] = useState(true);
+const Login = (paginaLogin) => {
+  const [isLogin, setIsLogin] = useState(paginaLogin);
 
   return (
     <div className="container">
