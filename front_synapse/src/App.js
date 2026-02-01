@@ -7,6 +7,7 @@ import TrabajaConNosotros from './trabaja_con_nosotros/TrabajaConNosotros';
 import Suscripcion from './suscripcion/Suscripcion';
 import Sesion from './sesion/Sesion';
 import logo from './assets/Logo-Synapse.png';
+import ChatBot from './chatBot/ChatBot';
 function App() {
   return (
    <div className="App">
@@ -18,13 +19,18 @@ function App() {
                 <Link to="/productos" className='btn-menu'>Productos</Link>
                 <Link to="/trabaja-con-nosotros" className='btn-menu'>Trabaja Con Nosotros</Link>
                 <Link to="/suscripcion" className='btn-menu'>Suscripcion</Link>
-                <Link to="/sesion" className='btn-menu'>Inicio de sesion</Link>
+                <div>
+                <button className='btn'><Link to="/sesion" className='btn-menu'>Iniciar sesion</Link></button>
+
+                <button className='btn'><Link to="/sesion" className='btn-menu'>Registrarse</Link></button>
+                </div>
+
         </nav>
     </header>
      
       <main>
               <Routes>
-                {/* CAMBIO CLAVE: Usamos el componente Home, NO el componente App */}
+                
                 <Route path="/" element={<Home />} /> 
                 <Route path="/productos" element={<Productos />} />
                 <Route path="/trabaja-con-nosotros" element={<TrabajaConNosotros />} />
@@ -44,13 +50,12 @@ function App() {
                     <Link to="/productos" className='btn-menu'>Productos</Link>
                     <Link to="/trabaja-con-nosotros" className='btn-menu'>Trabaja Con Nosotros</Link>
                     <Link to="/suscripcion" className='btn-menu'>Suscripcion</Link>
-                    <Link to="/sesion" className='btn-menu'>Inicio de sesion</Link>
             </nav>
           </div>
           <div>
 
             <Link to="/"><img src={logo} className='logo-footer'></img></Link>
-            <p>lorem ipsum sadasdafdsgfsd af sdfsdf sdf asdasf df lorem ipsum sadasdafdsgfsd af sdfsdf sdf asdasf df</p>
+            <p>Pagina oficial de Synapse, la mejor opción para la gestión de hogar.</p>
           </div>
 
           <div>
@@ -83,6 +88,7 @@ function App() {
           </ul>
         </div>
       </footer>
+      <ChatBot />
     </div>
   );
 }
