@@ -1,6 +1,8 @@
 import './home.css';
 import Carrusel from '../carrusel/Carrusel';
-import logoPrueba from '../assets/Logo-Synapse.png'
+import logoPrueba from '../assets/Logo-Synapse.png';
+import { Link } from 'react-router-dom';
+
 {/**AQUI ES COMO SI FUERA EL INDEX HTML DE INICIO*/}
 const Home = () => {
     const slidersBanner=[
@@ -64,7 +66,7 @@ const Home = () => {
         </div>
       </div>
       <p>Elige el plan que mejor se adapte a las necesidades de tu hogar y empieza a ahorrar tiempo y dinero con el mantenimiento inteligente de Synapse.</p>
-      <button className='btn btn-descarga'>Ver Más</button>
+      <button className='btn btn-descarga'><Link to="/sesion">Ver Más</Link></button>
     </div>
 
     <div className='informacion'>
