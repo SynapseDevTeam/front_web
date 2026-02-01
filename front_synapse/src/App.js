@@ -7,18 +7,20 @@ import TrabajaConNosotros from './trabaja_con_nosotros/TrabajaConNosotros';
 import Suscripcion from './suscripcion/Suscripcion';
 import Sesion from './sesion/Sesion';
 import logo from './assets/Logo-Synapse.png';
+import Login from './login_registro/Login';
 function App() {
   return (
    <div className="App">
     <header>
 
        <nav>
-                 <Link to="/"><img src={logo} className='logo-cabecera'></img></Link>
+                <Link to="/"><img src={logo} className='logo-cabecera'></img></Link>
                 <Link to="/" className='btn-menu'>Home</Link>
                 <Link to="/productos" className='btn-menu'>Productos</Link>
                 <Link to="/trabaja-con-nosotros" className='btn-menu'>Trabaja Con Nosotros</Link>
                 <Link to="/suscripcion" className='btn-menu'>Suscripcion</Link>
                 <Link to="/sesion" className='btn-menu'>Inicio de sesion</Link>
+                <Link to="/login" className='btn-menu'>Login</Link>
         </nav>
     </header>
      
@@ -30,6 +32,7 @@ function App() {
                 <Route path="/trabaja-con-nosotros" element={<TrabajaConNosotros />} />
                 <Route path="/suscripcion" element={<Suscripcion />} />
                 <Route path="/sesion" element={<Sesion />} />
+                <Route path="/login" element={<Login />} />
               </Routes>
             </main>
 
