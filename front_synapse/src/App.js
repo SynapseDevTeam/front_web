@@ -6,10 +6,9 @@ import Productos from './productos/Productos';
 import TrabajaConNosotros from './trabaja_con_nosotros/TrabajaConNosotros';
 import Suscripcion from './suscripcion/Suscripcion';
 import Sesion from './sesion/Sesion';
-import logo from './assets/Logo-Synapse.png';
+import logo from './assets/LogoSynapse.svg';
 import ChatBot from './chatBot/ChatBot';
 import Login from './login_registro/Login';
-
 function App() {
   const[estaAutenticado,setEstaAutenticado]=useState(false);
   return (
@@ -36,7 +35,7 @@ function App() {
 
             <div className="iconoUsuario">
               <span title="Perfil" style={{ marginRight: '10px', cursor: 'pointer' }}>
-                👤 Mi perfil
+                <Link to="/perfil">👤 Mi perfil </Link>
               </span> 
               <button className="btn-salir" onClick={() => setEstaAutenticado(false)}>
                 Salir
@@ -55,6 +54,7 @@ function App() {
                 <Route path="/suscripcion" element={<Suscripcion />} />
                 <Route path="/sesion" element={<Login iniciarEnLogin={true} alEntrar={() => setEstaAutenticado(true)} />} />
                 <Route path="/login" element={<Login iniciarEnLogin={false} alEntrar={() => setEstaAutenticado(true)} />} />
+                <Route path="/perfil" element={<Sesion />} />
               </Routes>
             </main>
 
