@@ -1,0 +1,59 @@
+/* Este es el fondo oscuro que cubre toda la pantalla */
+.modal-overlay {
+  position: fixed; /* Se queda quieto aunque bajes la página */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* Ocupa el 100% del alto de la ventana */
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+  
+  /* MAGIA DEL CENTRADO: */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente el modal-content */
+  align-items: center;     /* Centra verticalmente el modal-content */
+  
+  z-index: 9999; /* Asegúrate de que esté por encima de todo el contenido */
+}
+
+/* Esta es la caja blanca (el popup en sí) */
+.modal-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  position: relative; /* Para que el botón de cerrar se ubique respecto a este div */
+  width: 90%;
+  max-width: 500px; /* Evita que sea gigante en pantallas de PC */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  
+  /* Animación opcional para que "salte" al aparecer */
+  animation: aparecer 0.3s ease-out;
+}
+
+/* Estilos para el botón de cerrar (la X) */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  color: blueviolet; /* Tu color de Synapse */
+}
+
+/* Animación de entrada */
+@keyframes aparecer {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

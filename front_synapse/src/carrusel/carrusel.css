@@ -1,0 +1,104 @@
+.swiper-wrapper{
+   
+    align-items: center; 
+
+}
+
+.swiper-slide{
+    text-align: center;
+}
+.swiper {
+  margin-top:10vh ;
+  width: 99.2vw;
+  height: fit-content;
+  z-index: 0;
+}
+
+
+.banner-center{
+    
+    height: 90vh;
+}
+
+.banner-center > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    padding: 50px;
+}
+
+.banner-center > div > button{
+    width: 20vw;
+}
+
+.colaborador{
+    align-content: center;
+    align-items: center;
+    width: 13vw;
+}
+
+
+
+.colaboradores{
+    padding: 50px 0px 50px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: blueviolet;
+}
+
+.colaboradores h3{
+    font-size:xx-large;
+}
+
+
+.banner-principal{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                      url('../assets/banner-home.png');
+    background-size: cover;      /* cubre todo el div */
+    background-position: center; /* centra la imagen */
+    background-repeat: no-repeat;
+    
+}
+
+.banner-promociones {
+    /* Agregamos el degradado ANTES de la url de la imagen */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                      url('../assets/banner-app.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 500px; /* Asegúrate de que tenga altura */
+}
+
+.banner-informacion{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                      url('../assets/banner-sostenibilidad.png');
+    background-size: cover;      /* cubre todo el div */
+    background-position: center; /* centra la imagen */
+    background-repeat: no-repeat;
+    
+}
+
+.banner-article{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    border-radius: 25px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.26);
+    color: white;
+    height: 70%;
+    width: 40%;
+}
+
+.banner-profesional{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                      url('../assets/banner-profesional.png');
+    background-size: cover;      /* cubre todo el div */
+    background-position: center; /* centra la imagen */
+    background-repeat: no-repeat;
+}
