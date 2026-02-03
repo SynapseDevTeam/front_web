@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import chatbotLogo from "../assets/perfil.png";
 import './chatBot.css';
-
+import logoBot from '../assets/chatBotIcon.png';
 
 const API_KEY = "AIzaSyDc_rQT3kOXYymk7MuFEGglD8HwW7566Ug";
 
@@ -109,7 +108,7 @@ const handleSendMessage = async () => {
 
       {/* BOTÓN FLOTANTE */}
       <div className="btn-chatBot" onClick={() => setIsOpen(!isOpen)}>
-        <img src={chatbotLogo} alt="Chatbot" />
+        <img src={logoBot} alt="Chatbot" />
       </div>
     </>
   );

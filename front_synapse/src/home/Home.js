@@ -3,14 +3,15 @@ import Carrusel from '../carrusel/Carrusel';
 import logoPrueba from '../assets/Logo-Synapse.png';
 import { Link } from 'react-router-dom';
 
-{/**AQUI ES COMO SI FUERA EL INDEX HTML DE INICIO*/}
+
 const Home = () => {
+    {/* En esta constante recogemos todos los sliders que queremos que tenga nuestro carrusel, en este caso en el inicio. */}
     const slidersBanner=[
       <div className='banner-principal'>
         <div className='banner-article'>
           <h2>El Hogar del Futuro. Hoy.</h2>
           <p>Synapse es el sistema operativo inteligente que transforma la gestión de tu vivienda, creando un futuro donde la eficiencia y la proactividad son la nueva normalidad.</p>
-          <button className='btn btn-info'>Descubre la Inteligencia de tu Hogar</button>
+          <button className='btn btn-info'><Link to="/productos">Descubre la Inteligencia de tu Hogar</Link></button>
         </div>
       </div>,
       <div className='banner-promociones'>
@@ -24,7 +25,7 @@ const Home = () => {
         <div className='banner-article'>
           <h2>Más vida para tus aparatos, menos huella para el planeta.</h2>
           <p>Prolongamos la vida útil de tus sistemas y optimizamos el consumo de energía para reducir los residuos electrónicos y las emisiones.</p>
-          <button className='btn btn-delete'>Conoce nuestro Marketplace</button>
+          <button className='btn btn-delete'><Link to="/productos">Conoce nuestro Marketplace</Link></button>
         </div>
       </div>,
       <div className='banner-profesional'>
@@ -66,7 +67,7 @@ const Home = () => {
         </div>
       </div>
       <p>Elige el plan que mejor se adapte a las necesidades de tu hogar y empieza a ahorrar tiempo y dinero con el mantenimiento inteligente de Synapse.</p>
-      <button className='btn btn-descarga'><Link to="/sesion">Ver Más</Link></button>
+      <button className='btn btn-descarga'><Link to="/suscripcion">Ver Más</Link></button>
     </div>
 
     <div className='informacion'>
@@ -91,7 +92,7 @@ const Home = () => {
 
       <div className='portada-info'>
         <img src={logoPrueba} className='logo-cabecera'></img>
-        <button className='btn btn-descarga'>Ver Más</button>
+        <button className='btn btn-descarga'><Link to="/productos">Ver Más</Link></button>
       </div>
 
       <div className='lateral-grid'>
@@ -117,7 +118,7 @@ const Home = () => {
     <div className='trabaja-con-nosotros'>
       <h3>Trabaja con nosotros</h3>
       <p>¿quieres trabajar con nosotros? contactanos por el correo electronico <strong>synapsetech@gmail.com</strong> o por el formulario</p>
-      <button className='btn btn-edit'>Ver Más</button>
+      <button className='btn btn-edit'><Link to="/trabaja-con-nosotros">Ver Más</Link></button>
     </div>
     <div className='colaboradores'>
       <h3>Colaboradores</h3>
