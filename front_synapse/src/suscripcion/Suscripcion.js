@@ -37,7 +37,7 @@ function Suscripcion() {
       <article className='plan'>
         <div className='plan-ico'>
           <p>12.99€/mes</p>
-          <p>Premium +</p>
+          <p>Premium Pro</p>
         </div>
         <button className="btn btn-descarga">Elegir plan</button>
         <div className="caracteristicas-planes">
@@ -51,7 +51,7 @@ function Suscripcion() {
     <div className="comparacion-planes-grid">
       <div className="tipo-plan">Free</div>
       <div className="tipo-plan">Premium</div>
-      <div className="tipo-plan">Premium +</div>
+      <div className="tipo-plan">Premium Profesional</div>
 
       <div>Gestión ilimitada de electrodomésticos <img src={logoCross}></img></div>
       <div>Gestión ilimitada de electrodomésticos <img src={logoCheck}></img></div>

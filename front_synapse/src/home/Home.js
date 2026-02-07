@@ -57,13 +57,13 @@ const Home = () => {
         </div>
 
         <div>
-          <p>FREEMIUM</p>
-          <p>Gratis</p>
+          <p>PREMIUM</p>
+          <p>7.99€/mes</p>
         </div>
 
         <div>
-          <p>FREEMIUM</p>
-          <p>Gratis</p>
+          <p>PREMIUM PRO</p>
+          <p>12.99€/mes</p>
         </div>
       </div>
       <p>Elige el plan que mejor se adapte a las necesidades de tu hogar y empieza a ahorrar tiempo y dinero con el mantenimiento inteligente de Synapse.</p>

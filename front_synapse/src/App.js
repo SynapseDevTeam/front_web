@@ -9,6 +9,7 @@ import Sesion from './sesion/Sesion';
 import logo from './assets/LogoSynapse.svg';
 import ChatBot from './chatBot/ChatBot';
 import Login from './login_registro/Login';
+import logoPerfil from './assets/perfil.png';
 function App() {
   const[estaAutenticado,setEstaAutenticado]=useState(false);
   return (
@@ -35,7 +36,7 @@ function App() {
 
             <div className="iconoUsuario">
               <span title="Perfil" style={{ marginRight: '10px', cursor: 'pointer' }}>
-                <Link to="/perfil">👤 Mi perfil </Link>
+                 <Link to="/perfil"><img src={logoPerfil} />Mi perfil </Link>
               </span> 
               <button className="btn-salir" onClick={() => setEstaAutenticado(false)}>
                 Salir

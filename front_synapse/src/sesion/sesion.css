@@ -9,10 +9,10 @@
     padding: 50px;
 }
 
-.lateral-grid{
+.vista-perfil > .lateral-grid{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     text-align: center;
     width: 25vw;
     align-items: center;
@@ -20,6 +20,24 @@
     box-shadow: 0px 0px 5px grey;
     border-radius: 10px ;
 }
+
+.vista-perfil > .lateral-grid *{
+  width: 100%;
+  color: black;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: 0.65s all ease-in-out;
+}
+
+
+.vista-perfil > .lateral-grid *:hover{
+  text-decoration: none;
+   border-radius: 2px;
+  box-shadow: 0px 1px 1px blueviolet,
+              0px -1px 1px blueviolet;
+
+}
+
 
 .info-general-acc{
     display: flex;
@@ -33,6 +51,9 @@
 
 .info-general-acc img{
     width: 5vw;
+    box-shadow: 0px 0px 3px gray;
+    aspect-ratio: 1 / 1; 
+    border-radius: 50%;
 }
 
 .info-general-acc div{
@@ -41,10 +62,17 @@
     justify-content: space-evenly;
 }
 
+.info-general-acc .btn{
+    display: flex;
+    width: 10vw;
+    justify-content: space-evenly;
+}
+
 .plan-select{
-    background-color: aqua;
-    padding: 10px;
-    border-radius: 25px;
+    background-color: rgb(179, 100, 252);
+    color: white;
+    padding: 15px;
+    border-radius: 35px;
 }
 
 
@@ -55,16 +83,11 @@
     
 }
 
-/*Parte de acordeon (desplegable lista)*/
-.acordeon-container {
-  max-width: 600px;
-  margin: 20px auto;
-  border-radius: 10px;
-  overflow: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 .acordeon-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   border-bottom: 1px solid #eee;
   background-color: #fff;
 }
@@ -75,6 +98,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  width: 99vw;
   background-color: #fcfcfc;
   transition: background 0.3s ease;
 }
@@ -98,6 +122,7 @@
 /* --- EFECTO DE DESPLIEGUE --- */
 .acordeon-content {
   max-height: 0;
+  width: 50vw;
   overflow: hidden;
   transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   background-color: white;
