@@ -58,7 +58,7 @@ function Sesion() {
         <div className="info-general-acc">
             <img src={logo}></img>
 
-            <p className="plan-select">Plan seleccionado: default con VISTA BOTON</p>
+            <p className="plan-select">Plan seleccionado: default</p>
 
             <p>Nombre apellidos (xx/xx/xxxx)</p>
 
@@ -79,7 +79,7 @@ function Sesion() {
 
       {/* Popup de MÉTODOS DE PAGO */}
       <Popup isOpen={popupActivo === 'pago'} onClose={cerrarPopup}>
-        <h2>Métodos de Pago</h2>
+        <h2>Métodos de Pago (EN DESARROLLO)</h2>
         <p>Aquí aparecerán tus tarjetas guardadas.</p>
         <button className="btn">Añadir tarjeta</button>
       </Popup>
