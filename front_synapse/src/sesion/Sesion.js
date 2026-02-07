@@ -148,6 +148,9 @@ function Sesion() {
 
         <div className="info-general-acc">
           <img src={logo} alt="Perfil"></img>
+            <img src={logo}></img>
+
+            <p className="plan-select">Plan seleccionado: default</p>
 
           {/* USAMOS LOS DATOS QUE VIENEN DE LA API */}
           <p className="plan-select">Plan seleccionado: {datosUsuario?.planName || 'Básico'}</p>
@@ -181,6 +184,34 @@ function Sesion() {
             <li>Gestiona tus dispositivos desde aquí.</li>
           </ul>
         </Popup>
+      {/* Popup de MÉTODOS DE PAGO */}
+      <Popup isOpen={popupActivo === 'pago'} onClose={cerrarPopup}>
+        <h2>Métodos de Pago (EN DESARROLLO)</h2>
+        <p>Aquí aparecerán tus tarjetas guardadas.</p>
+        <button className="btn">Añadir tarjeta</button>
+      </Popup>
+
+      {/* Popup de DISPOSITIVOS */}
+      <Popup isOpen={popupActivo === 'dispositivos'} onClose={cerrarPopup}>
+        <h2>Dispositivos Conectados</h2>
+        <ul>
+          <li>iPhone de Juan</li>
+          <li>Samsung TV Salón</li>
+        </ul>
+      </Popup>
+
+      {/* Popup de SERVICIOS */}
+      <Popup isOpen={popupActivo === 'servicios'} onClose={cerrarPopup}>
+        <h2>Historial de Técnicos</h2>
+        <p>No tienes reparaciones pendientes.</p>
+      </Popup>
+
+       {/* Popup de CONTRASEÑA */}
+       <Popup isOpen={popupActivo === 'password'} onClose={cerrarPopup}>
+        <h2>Cambiar Contraseña</h2>
+        <input type="password" placeholder="Nueva contraseña"/>
+        <button className="btn">Guardar</button>
+      </Popup>
 
         <Popup isOpen={popupActivo === 'servicios'} onClose={cerrarPopup}>
           <h2>Historial de Técnicos</h2>
