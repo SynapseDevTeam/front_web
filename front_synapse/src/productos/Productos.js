@@ -134,31 +134,31 @@ function Productos() {
     <h4>Eficiencia</h4>
     
     <label className="filtro-label">
-        <input type="checkbox" className="filtro-input"name="A"                      // <--- IMPORTANTE
+        <input type="checkbox" className="filtro-input"name="A"                      
                     checked={filtrosEficiencia.A} 
                     onChange={handleEficienciaChange} /> A
     </label>
     
     <label className="filtro-label">
-        <input type="checkbox" className="filtro-input"name="B"                      // <--- IMPORTANTE
+        <input type="checkbox" className="filtro-input"name="B"                      
                     checked={filtrosEficiencia.B} 
                     onChange={handleEficienciaChange} /> B
     </label>
     
     <label className="filtro-label">
-        <input type="checkbox" className="filtro-input"name="C"                      // <--- IMPORTANTE
+        <input type="checkbox" className="filtro-input"name="C"                      
                     checked={filtrosEficiencia.C} 
                     onChange={handleEficienciaChange} /> C
     </label>
     
     <label className="filtro-label">
-        <input type="checkbox" className="filtro-input" name="D"                      // <--- IMPORTANTE
+        <input type="checkbox" className="filtro-input" name="D"                     
                     checked={filtrosEficiencia.D} 
                     onChange={handleEficienciaChange} /> D
     </label>
     
     <label className="filtro-label">
-        <input type="checkbox" className="filtro-input" name="E"                      // <--- IMPORTANTE
+        <input type="checkbox" className="filtro-input" name="E"                     
                     checked={filtrosEficiencia.E} 
                     onChange={handleEficienciaChange} /> E
     </label>
