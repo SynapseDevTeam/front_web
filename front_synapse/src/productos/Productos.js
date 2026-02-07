@@ -73,10 +73,10 @@ function Productos() {
   // --- LÓGICA DE FILTRADO ---
   
   const productosFiltrados = productos.filter((producto) => {
-    // 1. Filtro por Buscador
+    //  Filtro por Buscador
     const coincideBusqueda = producto.nombre.toLowerCase().includes(busqueda.toLowerCase());
 
-    // 2. Filtro por Conectividad
+    //  Filtro por Conectividad
     // Verificamos si los filtros están activos. Si están activos, el producto debe tener esa tecnología.
     const filtroWifi = filtrosConectividad.wifi    
     ? producto.conectividad.some(c => c.toLowerCase() === 'wifi') 
@@ -85,7 +85,7 @@ function Productos() {
         ? producto.conectividad.some(c => c.toLowerCase() === 'bluetooth') 
         : true;
 
-    // 3. Filtro por Eficiencia
+    //  Filtro por Eficiencia
     const hayFiltroEficienciaActivo = Object.values(filtrosEficiencia).some(val => val === true);
     let coincideEficiencia = true;
 
@@ -113,6 +113,7 @@ function Productos() {
             <p>Sensores</p>
             <p>Hogar</p>
         </div>
+
 
 <div className="filtro-grupo">
     <h4>Conectividad</h4>
