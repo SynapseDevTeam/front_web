@@ -7,9 +7,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
 }
 
-/* 
-   LAYOUT PRINCIPAL 
-    */
+
 .layout {
   display: flex;       
   min-height: 100vh;   
@@ -54,9 +52,14 @@
 
 .filtro-grupo p, 
 .filtro-grupo label {
-  margin-bottom: 8px;
-  font-size: 0.95rem;
-  color: #333;
+  display: block;       
+  margin-bottom: 5px;   
+  cursor: pointer;      
+  font-size: 14px;
+}
+
+.filtro-input {
+  margin-right: 8px;  
   cursor: pointer;
 }
 
