@@ -26,7 +26,7 @@ header nav{
 }
 
 .btn-menu{
-  color: black;
+  color: black !important;
   text-transform: uppercase;
   text-decoration: none;
   
@@ -97,6 +97,11 @@ nav  div .btn,.btn-salir{
     width: 15vw;
 }
 
+.btn a{
+  color: white;
+  text-decoration: none;
+}
+
 .btn:hover, .btn-salir:hover{
     box-shadow: 0px 0px 15px #BF00FF;
 }
@@ -110,7 +115,7 @@ nav  div .btn,.btn-salir{
 }
 
 .btn-info{
-color:white;
+color:white !important;
 background: #201585;    
 background: linear-gradient(90deg, rgba(32, 21, 133, 1) 0%, 
                         rgba(145, 87, 199, 1) 50%, 
@@ -130,8 +135,12 @@ background: linear-gradient(90deg, rgba(32, 21, 133, 1) 0%,
   border: 3px solid black;
 }
 
+.btn-descarga a{
+  color: black !important;
+}
+
 .btn-delete{
-   color: white;
+   color: white !important;
    background: #ff4545;
    background: linear-gradient(90deg, rgb(255, 25, 25) 0%, 
                                    rgba(255, 0, 0, 1) 50%, 
@@ -140,4 +149,29 @@ background: linear-gradient(90deg, rgba(32, 21, 133, 1) 0%,
 
 .banner-inicio{
   margin: 13vh 0px 15px 0px;
+}
+
+
+.iconoUsuario{
+  background-color: #BF00FF;
+  border-radius: 25px;
+  padding: 10px 20px;
+  box-shadow: 0px 0px 5px black;
+}
+
+.iconoUsuario span a{
+  display: flex;
+  justify-content: space-evenly;
+   color: white;
+   text-decoration: none !important;
+   align-items: center;
+  align-content: center;
+  width: 7vw;
+  flex-wrap: wrap;
+  
+}
+
+.iconoUsuario span a img{
+  border: 0.2px solid white;
+  border-radius: 50%;
 }

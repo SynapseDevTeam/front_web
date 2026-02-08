@@ -4,155 +4,152 @@ import iconoBusqueda from '../assets/search.svg';
 import imagen from './imgLavadora.jpg';
 
 function Productos() {
-  // --- 1. PRODUCTOS DE RESPALDO por si falla el backend ---
-  const productosFallback = [
+
+  const [productos] = useState([
     { 
-      id: "fb-1", 
-      modelo: "Lavadora Industrial Plus", 
-      marca: "AEG", 
-      precio: "4500 €", 
-      conectividad: "WiFi", 
-      eficiencia: "A", 
-      imagen: imagen 
+      id: 1, 
+      nombre: "Lavadora Industrial", 
+      info: "Industrial", 
+      precio: 4500, 
+      imagen: imagen,
+      conectividad: ["WiFi"],
+      Eficiencia: "A"
     },
     { 
-      id: "fb-2", 
-      modelo: "Sensor IoT Pro", 
-      marca: "Babyliss", 
-      precio: "1200 €", 
-      conectividad: "Bluetooth", 
-      eficiencia: "B", 
-      imagen: imagen 
+      id: 2, 
+      nombre: "Secadora Industrial", 
+      info: "Industrial", 
+      precio: 3200, 
+      imagen: imagen,
+      conectividad: ["Bluetooth"], 
+      Eficiencia: "B"
     }
-  ];
+  ]);
 
-  // --- 2. ESTADOS ---
+  // --- ESTADOS ---
+
+  // 1. Estado para la barra de búsqueda
   const [busqueda, setBusqueda] = useState("");
-  const [productos, setProductos] = useState([]); 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  //estado de precios
-  const [precioMaximo, setPrecioMaximo] = useState(10000);
-// filtros de conectividad, eficiencia y marca
-  const [filtrosConectividad, setFiltrosConectividad] = useState({ wifi: false, bluetooth: false });
-  const [filtrosEficiencia, setFiltrosEficiencia] = useState({ A: false, B: false, C: false, D: false, E: false });
-  const [filtrosMarca, setFiltrosMarca] = useState({
-    AEG: false, Babyliss: false, Balay: false, Beko: false, Bosch: false
+
+  // 2. Estado para los filtros de Conectividad
+  const [filtrosConectividad, setFiltrosConectividad] = useState({
+    wifi: false,
+    bluetooth: false
   });
 
-  // --- 3. INTEGRACIÓN BACKEND ---
-  const fetchProductos = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch('http://34.228.45.59:8080/catalog/search?size=50'); 
-      if (!response.ok) throw new Error("Error: " + response.status);
-      const data = await response.json();
-      
-      if (data && Array.isArray(data.data)) {
-        setProductos(data.data); 
-      }
-    } catch (err) {
-      console.error("Error en la conexión:", err.message);
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+  // 3. Estado para los filtros de Eficiencia
+  const [filtrosEficiencia, setFiltrosEficiencia] = useState({
+    A: false, B: false, C: false, D: false, E: false
+  });
+
+  // --- MANEJADORES ---
+
+  // Cambio en la barra de búsqueda
+  const handleSearchChange = (e) => {
+    setBusqueda(e.target.value);
   };
 
-  useEffect(() => {
-    fetchProductos();
-  }, []); 
-
-  // --- 4. MANEJADORES ---
-  const handleSearchChange = (e) => setBusqueda(e.target.value);
+  // Cambio en checkboxes de Conectividad
   const handleConectividadChange = (e) => {
     const { name, checked } = e.target;
-    setFiltrosConectividad(prev => ({ ...prev, [name]: checked }));
+    setFiltrosConectividad({
+      ...filtrosConectividad,
+      [name]: checked 
+    });
   };
+
+  // Cambio en checkboxes de Eficiencia
   const handleEficienciaChange = (e) => {
     const { name, checked } = e.target;
-    setFiltrosEficiencia(prev => ({ ...prev, [name]: checked }));
-  };
-  const handleMarcaChange = (e) => {
-    const { name, checked } = e.target;
-    setFiltrosMarca(prev => ({ ...prev, [name]: checked }));
-  };
-  // Manejador para el slider de precio
-  const handlePrecioChange = (e) => {
-    setPrecioMaximo(parseInt(e.target.value));
+    setFiltrosEficiencia({
+      ...filtrosEficiencia,
+      [name]: checked
+    });
   };
 
-  // --- 5. LÓGICA DE FILTRADO UNIFICADA ---
-  const todosLosProductos = [...productosFallback, ...productos];
+  // --- LÓGICA DE FILTRADO ---
+  
+  const productosFiltrados = productos.filter((producto) => {
+    // 1. Filtro por Buscador
+    const coincideBusqueda = producto.nombre.toLowerCase().includes(busqueda.toLowerCase());
 
-  const productosFiltrados = todosLosProductos.filter((producto) => {
+    // 2. Filtro por Conectividad
+    // Verificamos si los filtros están activos. Si están activos, el producto debe tener esa tecnología.
+    const filtroWifi = filtrosConectividad.wifi    
+    ? producto.conectividad.some(c => c.toLowerCase() === 'wifi') 
+        : true;
+    const filtroBluetooth = filtrosConectividad.bluetooth 
+        ? producto.conectividad.some(c => c.toLowerCase() === 'bluetooth') 
+        : true;
 
-    const precioNumerico = typeof producto.precio === 'string' 
-      ? parseInt(producto.precio.replace(/[^0-9]/g, "")) 
-      : producto.precio;
-
-    // Filtro Precio
-    const coincidePrecio = precioNumerico <= precioMaximo;
-
-    // Filtro Buscador
-    const nombreParaFiltrar = producto.modelo || ""; 
-    const coincideBusqueda = nombreParaFiltrar.toLowerCase().includes(busqueda.toLowerCase());
-
-    // Filtro Conectividad
-    const tieneWifi = producto.conectividad === "WiFi";
-    const tieneBluetooth = producto.conectividad === "Bluetooth";
-    const filtroWifi = filtrosConectividad.wifi ? tieneWifi : true;
-    const filtroBluetooth = filtrosConectividad.bluetooth ? tieneBluetooth : true;
-
-    // Filtro Marca
-    const hayFiltroMarcaActivo = Object.values(filtrosMarca).some(val => val === true);
-    const coincideMarca = hayFiltroMarcaActivo ? filtrosMarca[producto.marca] : true;
-
-    // Filtro Eficiencia
+    // 3. Filtro por Eficiencia
     const hayFiltroEficienciaActivo = Object.values(filtrosEficiencia).some(val => val === true);
-    const coincideEficiencia = hayFiltroEficienciaActivo ? filtrosEficiencia[producto.eficiencia] : true;
+    let coincideEficiencia = true;
 
-    return coincideBusqueda && coincidePrecio && filtroWifi && filtroBluetooth && coincideMarca && coincideEficiencia;
+    if (hayFiltroEficienciaActivo) {
+        // Verifica si la eficiencia del producto está marcada como true en el estado
+        coincideEficiencia = filtrosEficiencia[producto.Eficiencia];
+    }
+
+    // El producto pasa si cumple TODAS las condiciones
+    return coincideBusqueda && filtroWifi && filtroBluetooth && coincideEficiencia;
   });
-
-  // --- 6. RENDERIZADO ---
+  
   return (
     <div className="layout">
       <aside className="sidebar">
         <h3>Filtros</h3>
         <div className="linea-separadora"></div>
 
-        {/* Módulo de Filtro de Precio */}
-        <div className="filtro-grupo">
-          <h4>Precio Máximo</h4>
-          <input 
-            type="range" 
-            min="0" 
-            max="10000" 
-            step="100"
-            value={precioMaximo} 
-            onChange={handlePrecioChange}
-            className="price-slider"
-          />
-          <p>Hasta: <strong>{precioMaximo} €</strong></p>
-        </div>
+<div className="filtro-grupo">
+    <h4>Conectividad</h4>
+    
+    <label className="filtro-label">
+        <input type="checkbox" className="filtro-input" name="wifi"                           // <--- IMPORTANTE
+                    checked={filtrosConectividad.wifi}   
+                    onChange={handleConectividadChange} /> WiFi
+    </label>
+    
+    <label className="filtro-label">
+        <input type="checkbox" className="filtro-input" name="bluetooth"                           // <--- IMPORTANTE
+                    checked={filtrosConectividad.bluetooth}    
+                    onChange={handleConectividadChange}/> Bluetooth
+    </label>
+</div>
 
-        <div className="linea-separadora"></div>
-        
-        <div className="filtro-grupo">
-          <h4>Marcas Disponibles</h4>
-          {Object.keys(filtrosMarca).map((marca) => (
-            <label key={marca} className="filtro-label">
-              <input 
-                type="checkbox" 
-                className="filtro-input" 
-                name={marca}
-                checked={filtrosMarca[marca]}
-                onChange={handleMarcaChange} 
-              /> {marca}
-            </label>
-          ))}
-        </div>
+<div className="filtro-grupo">
+    <h4>Eficiencia</h4>
+    
+    <label className="filtro-label">
+        <input type="checkbox" className="filtro-input"name="A"                      
+                    checked={filtrosEficiencia.A} 
+                    onChange={handleEficienciaChange} /> A
+    </label>
+    
+    <label className="filtro-label">
+        <input type="checkbox" className="filtro-input"name="B"                      
+                    checked={filtrosEficiencia.B} 
+                    onChange={handleEficienciaChange} /> B
+    </label>
+    
+    <label className="filtro-label">
+        <input type="checkbox" className="filtro-input"name="C"                      
+                    checked={filtrosEficiencia.C} 
+                    onChange={handleEficienciaChange} /> C
+    </label>
+    
+    <label className="filtro-label">
+        <input type="checkbox" className="filtro-input" name="D"                     
+                    checked={filtrosEficiencia.D} 
+                    onChange={handleEficienciaChange} /> D
+    </label>
+    
+    <label className="filtro-label">
+        <input type="checkbox" className="filtro-input" name="E"                     
+                    checked={filtrosEficiencia.E} 
+                    onChange={handleEficienciaChange} /> E
+    </label>
+</div>
 
         <div className="linea-separadora"></div>
         <div className="filtro-grupo">
@@ -163,21 +160,24 @@ function Productos() {
       </aside>
 
       <main className="main-content">
+
+        
+        {/* BUSCADOR */}
         <header className="header-search">
             <div className="search-bar">
                 <img src={iconoBusqueda} alt="Buscar" className="icon" />
-                <input 
-                  type="text" 
-                  placeholder="Buscar productos..." 
-                  value={busqueda} 
-                  onChange={handleSearchChange}
-                />
+                <input type="text" placeholder="Buscar productos..." value={busqueda}                 // <--- IMPORTANTE
+                    onChange={handleSearchChange}/>
             </div>
         </header>
 
-        <div className="grid-productos">
+        {/* productos */}
+      <div className="grid-productos">
+          
           {productosFiltrados.map((item) => (
-            <div key={item.uuid || item.id} className="product-card">
+            <div key={item.id} className="product-card">
+              
+              {/*img producto */}
               <div className="card-image-container">
                 <img 
                   src={item.imagen || imagen} 

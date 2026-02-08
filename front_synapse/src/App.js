@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Home from './home/Home';
-import {Link, Route, Routes} from 'react-router-dom';
+import {Link, Navigate, Route, Routes,useNavigate} from 'react-router-dom';
 import Productos from './productos/Productos';
 import TrabajaConNosotros from './trabaja_con_nosotros/TrabajaConNosotros';
 import Suscripcion from './suscripcion/Suscripcion';
@@ -9,8 +9,10 @@ import Sesion from './sesion/Sesion';
 import logo from './assets/LogoSynapse.svg';
 import ChatBot from './chatBot/ChatBot';
 import Login from './login_registro/Login';
+import logoPerfil from './assets/perfil.png';
 function App() {
   const[estaAutenticado,setEstaAutenticado]=useState(false);
+  const navegar = useNavigate();
   return (
    <div className="App">
     <header>
@@ -35,9 +37,13 @@ function App() {
 
             <div className="iconoUsuario">
               <span title="Perfil" style={{ marginRight: '10px', cursor: 'pointer' }}>
-                <Link to="/perfil">👤 Mi perfil </Link>
+                 <Link to="/perfil"><img src={logoPerfil} />Mi perfil </Link>
               </span> 
-              <button className="btn-salir" onClick={() => setEstaAutenticado(false)}>
+              <button className="btn-salir" onClick={() => {
+                localStorage.clear();
+                setEstaAutenticado(false)
+                navegar('/');
+              }}>
                 Salir
               </button>
             </div>
