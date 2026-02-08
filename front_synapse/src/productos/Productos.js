@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import './productos.css';
 import iconoBusqueda from '../assets/search.svg'; 
 import imagen from './imgLavadora.jpg';
-
-
-
 
 function Productos() {
 
@@ -100,19 +97,9 @@ function Productos() {
   
   return (
     <div className="layout">
-      
-      {/* Barra lateral */}
       <aside className="sidebar">
         <h3>Filtros</h3>
         <div className="linea-separadora"></div>
-        
-        
-        <div className="filtro-grupo">
-            <h4>Categoría</h4>
-            <p>Industrial</p>
-            <p>Sensores</p>
-            <p>Hogar</p>
-        </div>
 
 <div className="filtro-grupo">
     <h4>Conectividad</h4>
@@ -165,6 +152,11 @@ function Productos() {
 </div>
 
         <div className="linea-separadora"></div>
+        <div className="filtro-grupo">
+          <h4>Estadísticas</h4>
+          <p>Total: {todosLosProductos.length} dispositivos</p>
+          <p>Encontrados: {productosFiltrados.length}</p>
+        </div>
       </aside>
 
       <main className="main-content">
@@ -187,24 +179,22 @@ function Productos() {
               
               {/*img producto */}
               <div className="card-image-container">
-                {/* Usamos item.imagen para que pueda ser una distinta */}
-                <img src={imagen} alt={"lavadora"} />
+                <img 
+                  src={item.imagen || imagen} 
+                  alt={item.modelo} 
+                  onError={(e) => { e.target.src = "/assets/default-placeholder.png"; }} 
+                />
               </div>
-              
-              {/* Información producto */}
               <div className="card-info">
-                <h3 className="card-title">{item.nombre}</h3>
-                <p className="card-category">{item.info}</p>
-                <p className="card-price">{item.precio} €</p>
+                <h3 className="card-title">{item.modelo}</h3>
+                <p className="card-category">{item.marca}</p>
+                <p className="card-price">{item.precio}</p> 
               </div>
-
             </div>
           ))}
-
+          {productosFiltrados.length === 0 && <p>No hay productos que coincidan con los filtros.</p>}
         </div>
-
       </main>
-
     </div>      
   );
 }
