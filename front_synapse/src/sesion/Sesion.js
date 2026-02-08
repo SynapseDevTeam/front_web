@@ -148,7 +148,6 @@ function Sesion() {
 
         <div className="info-general-acc">
           <img src={logo} alt="Perfil"></img>
-            <img src={logo}></img>
 
             <p className="plan-select">Plan seleccionado: default</p>
 
@@ -171,13 +170,7 @@ function Sesion() {
           <Link to="/suscripcion"><p>Cambiar suscripción</p></Link>
           <p onClick={() => setPopupActivo('password')}>Cambiar contraseña</p>
         </div>
-
-        {/* Popups (se mantienen igual) */}
-        <Popup isOpen={popupActivo === 'pago'} onClose={cerrarPopup}>
-          <h2>Métodos de Pago</h2>
-          <p>Aquí aparecerán tus tarjetas guardadas.</p>
-        </Popup>
-
+        {/**dispositivos asociados */}
         <Popup isOpen={popupActivo === 'dispositivos'} onClose={cerrarPopup}>
           <h2>Dispositivos Conectados</h2>
           <ul>
@@ -212,17 +205,6 @@ function Sesion() {
         <input type="password" placeholder="Nueva contraseña"/>
         <button className="btn">Guardar</button>
       </Popup>
-
-        <Popup isOpen={popupActivo === 'servicios'} onClose={cerrarPopup}>
-          <h2>Historial de Técnicos</h2>
-          <p>Consulta tus asistencias pasadas.</p>
-        </Popup>
-
-        <Popup isOpen={popupActivo === 'password'} onClose={cerrarPopup}>
-          <h2>Cambiar Contraseña</h2>
-          <input type="password" placeholder="Nueva contraseña" />
-          <button className="btn">Guardar</button>
-        </Popup>
       </div>
 
       <div className="section-preguntas-frecuentes">
