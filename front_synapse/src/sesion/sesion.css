@@ -2,6 +2,16 @@
     margin-bottom: 100px;
 }
 
+.forms-popUp{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.forms-popUp *{
+  width: 80%;
+}
+
 .vista-perfil{
     display: flex;
     justify-content: space-between;
@@ -41,12 +51,25 @@
 
 .info-general-acc{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-evenly;
-    width: 30vw;
+    width: 35vw;
     height: 50vh;
+    box-shadow: 0px 0px 5px grey;
+    border-radius: 10px ;
     
+}
+
+.info-general-acc .plan-select{
+  width: 30vw;
+}
+
+.info-general-acc p{
+  text-align: center;
+  width: 15vw;
+  
 }
 
 .info-general-acc img{
@@ -54,6 +77,7 @@
     box-shadow: 0px 0px 3px gray;
     aspect-ratio: 1 / 1; 
     border-radius: 50%;
+    margin: 20px;
 }
 
 .info-general-acc div{
@@ -64,7 +88,7 @@
 
 .info-general-acc .btn{
     display: flex;
-    width: 10vw;
+    width: 15vw;
     justify-content: space-evenly;
 }
 
