@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Home from './home/Home';
-import {Link, Route, Routes} from 'react-router-dom';
+import {Link, Navigate, Route, Routes,useNavigate} from 'react-router-dom';
 import Productos from './productos/Productos';
 import TrabajaConNosotros from './trabaja_con_nosotros/TrabajaConNosotros';
 import Suscripcion from './suscripcion/Suscripcion';
@@ -12,6 +12,7 @@ import Login from './login_registro/Login';
 import logoPerfil from './assets/perfil.png';
 function App() {
   const[estaAutenticado,setEstaAutenticado]=useState(false);
+  const navegar = useNavigate();
   return (
    <div className="App">
     <header>
@@ -22,7 +23,7 @@ function App() {
                 <Link to="/productos" className='btn-menu'>Productos</Link>
                 <Link to="/trabaja-con-nosotros" className='btn-menu'>Trabaja Con Nosotros</Link>
                 <Link to="/suscripcion" className='btn-menu'>Suscripcion</Link>
-{!estaAutenticado ? (
+{!estaAutenticado && !localStorage.getItem('token') ? (
             // Si NO está autenticado, muestra los botones de acceso
             <div className="auth-buttons">
               <button className='btn'>
@@ -38,7 +39,11 @@ function App() {
               <span title="Perfil" style={{ marginRight: '10px', cursor: 'pointer' }}>
                  <Link to="/perfil"><img src={logoPerfil} />Mi perfil </Link>
               </span> 
-              <button className="btn-salir" onClick={() => setEstaAutenticado(false)}>
+              <button className="btn-salir" onClick={() => {
+                localStorage.clear();
+                setEstaAutenticado(false)
+                navegar('/');
+              }}>
                 Salir
               </button>
             </div>
