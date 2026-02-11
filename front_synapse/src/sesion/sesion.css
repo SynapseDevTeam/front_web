@@ -31,72 +31,100 @@
     border-radius: 10px ;
 }
 
-.vista-perfil > .lateral-grid *{
-  width: 100%;
-  color: black;
-  text-decoration: none;
-  border-radius: 2px;
-  transition: 0.65s all ease-in-out;
+.vista-perfil > .lateral-grid > * {
+    width: 100%;
+    color: black;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: 0.65s all ease-in-out;
+    padding: 15px 10px;
+    cursor: pointer;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 1px solid transparent;
+}
+
+.vista-perfil > .lateral-grid >*:hover {
+    text-decoration: none;
+    border-radius: 2px;
+    box-shadow: 0px 1px 1px blueviolet, 
+                0px -1px 1px blueviolet;
+    
+    background-color: rgba(138, 43, 226, 0.05); 
+    color: blueviolet;
 }
 
 
-.vista-perfil > .lateral-grid *:hover{
-  text-decoration: none;
-   border-radius: 2px;
-  box-shadow: 0px 1px 1px blueviolet,
-              0px -1px 1px blueviolet;
-
-}
-
-
-.info-general-acc{
+.info-general-acc {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-evenly;
     width: 35vw;
-    height: 50vh;
-    box-shadow: 0px 0px 5px grey;
-    border-radius: 10px ;
     
+    min-height: 50vh; 
+    height: auto; 
+    padding: 20px;
+    box-shadow: 0px 0px 5px grey;
+    border-radius: 10px;
+    box-sizing: border-box;
 }
 
-.info-general-acc .plan-select{
-  width: 30vw;
+.info-general-acc .plan-select {
+    width: 90%; 
+    margin-bottom: 15px;
 }
 
-.info-general-acc p{
-  text-align: center;
-  width: 15vw;
-  
+.info-general-acc p {
+    text-align: center;
+    width: 14vw;
+    margin: 10px 0;
+    font-size: clamp(0.7rem, 1vw, 1rem);
+    word-wrap: break-word;
 }
 
-.info-general-acc img{
+.info-general-acc img {
     width: 5vw;
     box-shadow: 0px 0px 3px gray;
     aspect-ratio: 1 / 1; 
     border-radius: 50%;
-    margin: 20px;
+    margin: 10px;
 }
 
-.info-general-acc div{
+
+.info-general-acc .container-btns {
     display: flex;
     width: 100%;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
 }
 
-.info-general-acc .btn{
-    display: flex;
-    width: 15vw;
-    justify-content: space-evenly;
+.info-general-acc .btn {
+    
+    flex: 1; 
+    max-width: 12vw; 
+    min-width: 100px; 
+    padding: 10px 5px;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
 }
 
-.plan-select{
-    background-color: rgb(179, 100, 252);
+.btn-edit {
+    background-color: #2ecc71;
     color: white;
-    padding: 15px;
-    border-radius: 35px;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+    font-size: 0.7rem;
 }
 
 
@@ -134,12 +162,12 @@
 }
 
 .acordeon-header:hover {
-  background-color: #f3e5f5; /* Color sutil de hover */
+  background-color: #f3e5f5; 
 }
 
 .icon {
   font-size: 1.5rem;
-  color: blueviolet; /* Color Synapse */
+  color: blueviolet; 
   font-weight: bold;
 }
 
@@ -153,10 +181,126 @@
 }
 
 .acordeon-item.active .acordeon-content {
-  max-height: 200px; /* Altura suficiente para el texto */
+  max-height: 200px;
   padding: 0 20px 20px 20px;
 }
 
 .acordeon-item.active .acordeon-header h3 {
   color: blueviolet;
+}
+
+/* --- ESTILOS DEL POPUP DE DISPOSITIVOS --- */
+
+/* Contenedor principal con scroll suave si hay muchas casas */
+.lista-casas-scroll {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+/* Tarjeta de cada CASA */
+.casa-card {
+  background-color: #f8f9fa; 
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  transition: transform 0.2s ease;
+}
+
+.casa-card:hover {
+  border-color: #ced4da;
+}
+
+
+.casa-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 10px;
+}
+
+.casa-titulo {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Grid de dispositivos */
+.dispositivos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+/* Tarjeta individual */
+.dispositivo-card {
+  background-color: white;
+  border: 1px solid #dfe6e9;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.dispositivo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border-color: #74b9ff;
+}
+
+/* Icono del dispositivo */
+.device-icon {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  background-color: #f1f2f6;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #576574;
+}
+
+/* Nombre del dispositivo */
+.device-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #57606f;
+  line-height: 1.2;
+}
+
+/* Indicador de estado */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #2ed573; /* Verde activo */
+  border-radius: 50%;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  box-shadow: 0 0 5px #2ed573;
+}
+
+/* Mensaje cuando no hay dispositivos */
+.empty-state {
+  color: #a4b0be;
+  font-style: italic;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.9rem;
 }

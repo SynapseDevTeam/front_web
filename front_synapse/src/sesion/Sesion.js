@@ -11,7 +11,7 @@ function Sesion() {
 
   // Estado para guardar los datos mientras se editan en el Popup
   const [datosEditables, setDatosEditables] = useState({
-    newfullName:'',
+    newfullName: '',
     fullName: '',
     telephone: '',
     address: ''
@@ -95,9 +95,53 @@ function Sesion() {
     newPassword: ""
   });
 
+  const [casasUser, setCasas] = useState({ casas: null })
+  const dispositivosAsociadosCasas = async () => {
+
+    if (casasUser.casas == null) {
+
+      const respuesta = await fetch(`${API_URL}/home/`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (respuesta.ok) {
+        let casasList = await respuesta.json();
+
+        const casasConDispositivos = await Promise.all(
+          casasList.map(async (casa) => {
+            const respuestaCasa = await fetch(`${API_URL}/home/${casa.id}/devices`, {
+              method: 'GET',
+              headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            });
+
+            let dispositivos = [];
+            if (respuestaCasa.ok) {
+              const data = await respuestaCasa.json();
+              // Aseguramos que sea un array
+              dispositivos = Array.isArray(data) ? data : [];
+            }
+
+            // Devolvemos el objeto casa YA con sus dispositivos
+            return {
+              id: casa.id,
+              nombreCasa: casa.name,
+              dispositivos: dispositivos
+            };
+          })
+        );
+
+        setCasas(casasConDispositivos);
+        console.log(casasConDispositivos);
+      }
+    }
+  };
+
   const cambiarPassword = async () => {
     const regexContrasena = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-    
+
     // LEEMOS DIRECTAMENTE DEL ESTADO
     const { oldPassword, newPassword } = formPassword;
 
@@ -107,7 +151,7 @@ function Sesion() {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}` 
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
           },
           body: JSON.stringify({
             "oldPassword": oldPassword,
@@ -120,7 +164,7 @@ function Sesion() {
           setPopupActivo(null); // Cerramos el popup
           setFormPassword({ oldPassword: "", newPassword: "" }); // Limpiamos inputs
         } else {
-          alert("Error al cambiar la contraseña:"+respuesta.statusText);
+          alert("Error al cambiar la contraseña:" + respuesta.statusText);
         }
       } catch (e) {
         console.error(e);
@@ -134,15 +178,15 @@ function Sesion() {
 
   const editarDatos = async () => {
 
-    const {newfullName,telephone,address}=datosEditables;
+    const { newfullName, telephone, address } = datosEditables;
     const token = localStorage.getItem('token');
     console.log(datosEditables);
     const respuesta = await fetch(`${API_URL}/profiles/${jwtUsuario.uuid}`, {
       method: 'PATCH',
-      headers: { 
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`  // ✅ AQUÍ DENTRO DE HEADERS
-    },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify({
         "fullName": newfullName,
         "telephone": telephone,
@@ -150,12 +194,12 @@ function Sesion() {
       })
     });
 
-    if(respuesta.ok){
+    if (respuesta.ok) {
       alert("Datos cambiados con exito");
-      setDatosEditables({fullName:datosEditables.newfullName,newfullName:""});
-    }else{
-       alert("error al modificar los datos: "+respuesta.status);
-       
+      setDatosEditables({ fullName: datosEditables.newfullName, newfullName: "" });
+    } else {
+      alert("error al modificar los datos: " + respuesta.status);
+
     }
   };
   // Datos del acordeón (se mantienen igual)
@@ -222,24 +266,30 @@ function Sesion() {
       <div className="vista-perfil">
         <div className="lateral-grid">
           <p onClick={() => setPopupActivo('pago')}>Método de pago</p>
-          <p onClick={() => setPopupActivo('dispositivos')}>Dispositivos asociados</p>
+          <p onClick={() => { dispositivosAsociadosCasas(); setPopupActivo('dispositivos'); }}>Dispositivos asociados</p>
           <p onClick={manejarLogout}>Cerrar sesión</p>
         </div>
 
         <div className="info-general-acc">
-          <img src={logo} alt="Perfil"></img>
+          <img src={logo} alt="Perfil" />
 
-          {/* DATOS DEL USUARIO API */}
-          <p className="plan-select">Plan seleccionado: {datosUsuario?.planName || 'Básico'}</p>
-          <p>Nombre y apellidos:<strong id="fullNameText"> {datosUsuario?.fullName || 'Usuario'}</strong></p>
-          <p>Usuario: <strong>{jwtUsuario.username || 'Usuario'}</strong></p>
-          <p>Correo: <strong>{jwtUsuario.email || 'No disponible'}</strong></p>
+          {/* Este párrafo ocupa el 30vw según tu CSS, actuando como cabecera interna */}
+          <p className="plan-select">
+            Plan seleccionado: {datosUsuario?.planName || 'Básico'}
+          </p>
 
-          <p>Teléfono:<strong id="telfText">{datosUsuario?.telephone || 'Sin teléfono'}</strong> </p>
-          <p>dirección:<strong id="addressText">{datosUsuario?.address || 'Sin dirección'}</strong>  </p>
-          
-          <div>
-            <button className="btn btn-delete" >Eliminar cuenta (En desarrollo)</button>
+          {/* Datos principales: se repartirán de dos en dos por el width: 15vw */}
+          <p>Nombre y apellidos: <br /> <strong id="fullNameText">{datosUsuario?.fullName || 'Usuario'}</strong></p>
+          <p>Usuario: <br /> <strong>{jwtUsuario.username || 'Usuario'}</strong></p>
+
+          <p>Correo: <br /> <strong style={{ fontSize: '0.8rem' }}>{jwtUsuario.email || 'No disponible'}</strong></p>
+          <p>Teléfono: <br /> <strong id="telfText">{datosUsuario?.telephone || 'Sin teléfono'}</strong></p>
+
+          <p style={{ width: '30vw' }}>Dirección: <br /> <strong id="addressText">{datosUsuario?.address || 'Sin dirección'}</strong></p>
+
+          {/* Contenedor de botones al final */}
+          <div className="container-btns">
+            <button className="btn btn-delete">Eliminar cuenta</button>
             <button className="btn btn-edit" onClick={() => setPopupActivo('editarPerfil')}>Editar</button>
           </div>
         </div>
@@ -251,25 +301,56 @@ function Sesion() {
         </div>
         {/**dispositivos asociados */}
         <Popup isOpen={popupActivo === 'dispositivos'} onClose={cerrarPopup}>
-          <h2>Dispositivos Conectados</h2>
-          <ul>
-            <li>Gestiona tus dispositivos desde aquí.</li>
-          </ul>
+          <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>Mis Espacios</h2>
+
+          <div className="lista-casas-scroll">
+            {casasUser && casasUser.length > 0 ? (
+              casasUser.map((casa) => (
+                <div key={casa.id} className="casa-card">
+
+                  {/* Cabecera de la Casa */}
+                  <div className="casa-header">
+                    <span className="casa-titulo">
+                      {casa.nombreCasa}
+                    </span>
+                    <span style={{ fontSize: '0.8rem', color: '#888' }}>
+                      {casa.dispositivos?.length || 0} dispositivos
+                    </span>
+                  </div>
+
+                  {/* Grid de Dispositivos */}
+                  <div className="dispositivos-grid">
+                    {casa.dispositivos && casa.dispositivos.length > 0 ? (
+                      casa.dispositivos.map((dispositivo) => (
+                        <div key={dispositivo.id} className="dispositivo-card">
+                          <div className="status-dot" title="Conectado"></div>
+                          <div className="device-icon">🔌</div>
+                          <span className="device-name">
+                            {dispositivo.customName || dispositivo.name}
+                          </span>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="empty-state">
+                        No hay dispositivos vinculados
+                      </div>
+                    )}
+                  </div>
+
+                </div>
+              ))
+            ) : (
+              <div style={{ textAlign: 'center', padding: '20px', color: '#666' }}>
+                <p>Cargando tus espacios inteligentes...</p>
+              </div>
+            )}
+          </div>
         </Popup>
         {/* Popup de MÉTODOS DE PAGO */}
         <Popup isOpen={popupActivo === 'pago'} onClose={cerrarPopup}>
           <h2>Métodos de Pago (EN DESARROLLO)</h2>
           <p>Aquí aparecerán tus tarjetas guardadas.</p>
           <button className="btn">Añadir tarjeta</button>
-        </Popup>
-
-        {/* Popup de DISPOSITIVOS */}
-        <Popup isOpen={popupActivo === 'dispositivos'} onClose={cerrarPopup}>
-          <h2>Dispositivos Conectados</h2>
-          <ul>
-            <li>iPhone de Juan</li>
-            <li>Samsung TV Salón</li>
-          </ul>
         </Popup>
 
         {/* Popup de SERVICIOS */}
@@ -296,28 +377,28 @@ function Sesion() {
         <Popup isOpen={popupActivo === 'editarPerfil'} onClose={cerrarPopup}>
           <div className="forms-popUp">
 
-          <h2>Editar datos personales</h2>
-          <label>Nombre y apellidos:</label>
-          <input  type="text" placeholder={datosEditables.fullName} 
-           
-          onChange={(e) => setDatosEditables({
-            ...datosEditables,//para que no cambie el valor de la otra variable
-            newfullName: e.target.value
-          })}/>
+            <h2>Editar datos personales</h2>
+            <label>Nombre y apellidos:</label>
+            <input type="text" placeholder={datosEditables.fullName}
 
-          <label>Teléfono:</label>
-          <input  type="text" value={datosEditables.telephone} placeholder="telefono" onChange={(e) => setDatosEditables({
-            ...datosEditables,//para que no cambie el valor de la otra variable
-            telephone: e.target.value
-          })}/>
+              onChange={(e) => setDatosEditables({
+                ...datosEditables,//para que no cambie el valor de la otra variable
+                newfullName: e.target.value
+              })} />
 
-          <label>Dirección:</label>
-          <input type="text" value={datosEditables.address} placeholder="direccion" onChange={(e) => setDatosEditables({
-            ...datosEditables,//para que no cambie el valor de la otra variable
-            address: e.target.value
-          })}/>
+            <label>Teléfono:</label>
+            <input type="text" value={datosEditables.telephone} placeholder="telefono" onChange={(e) => setDatosEditables({
+              ...datosEditables,//para que no cambie el valor de la otra variable
+              telephone: e.target.value
+            })} />
 
-          <button className="btn" onClick={editarDatos}>Guardar Cambios</button>
+            <label>Dirección:</label>
+            <input type="text" value={datosEditables.address} placeholder="direccion" onChange={(e) => setDatosEditables({
+              ...datosEditables,//para que no cambie el valor de la otra variable
+              address: e.target.value
+            })} />
+
+            <button className="btn" onClick={editarDatos}>Guardar Cambios</button>
           </div>
         </Popup>
       </div>
