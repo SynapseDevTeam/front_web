@@ -45,17 +45,17 @@ const Login = ({ iniciarEnLogin, alEntrar }) => {
       return;
     }
 
-    // --- CONEXIÓN CON LA API ---
+    // --- CONEXIÓN CON LA API REST---
     try {
       if (esLogin) {
-        // 1. LOGICA DE LOGIN (POST /auth/login) [cite: 110]
+        // 1. LOGICA DE LOGIN (POST /auth/login) 
         const respuesta = await fetch(`${API_URL}/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
             email: correo, 
             password: contrasena 
-          }) // [cite: 112]
+          }) 
         });
 
         const datos = await respuesta.json();

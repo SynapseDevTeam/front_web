@@ -23,7 +23,7 @@ function App() {
                 <Link to="/productos" className='btn-menu'>Productos</Link>
                 <Link to="/trabaja-con-nosotros" className='btn-menu'>Trabaja Con Nosotros</Link>
                 <Link to="/suscripcion" className='btn-menu'>Suscripcion</Link>
-{!estaAutenticado ? (
+{!estaAutenticado && !localStorage.getItem('token') ? (
             // Si NO está autenticado, muestra los botones de acceso
             <div className="auth-buttons">
               <button className='btn'>

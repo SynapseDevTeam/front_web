@@ -9,14 +9,20 @@ function Sesion() {
   const [activeIndex, setActiveIndex] = useState(-1);
   const [popupActivo, setPopupActivo] = useState(null);
 
+  // Estado para guardar los datos mientras se editan en el Popup
+  const [datosEditables, setDatosEditables] = useState({
+    newfullName: '',
+    fullName: '',
+    telephone: '',
+    address: ''
+  });
+
   // ESTADOS PARA LA API
   const [datosUsuario, setDatosUsuario] = useState(null);
   const [cargando, setCargando] = useState(true);
 
   const API_URL = "http://34.228.45.59:8080";
 
-  // --- NUEVO: Recuperamos y convertimos el objeto del localStorage ---
-  // Usamos un bloque try/catch o un valor por defecto para evitar errores si no existe
   const jwtUsuario = JSON.parse(localStorage.getItem('jwtUsuario')) || {};
 
   useEffect(() => {
@@ -42,6 +48,12 @@ function Sesion() {
         if (respuesta.ok) {
           const data = await respuesta.json();
           setDatosUsuario(data);
+          setDatosEditables({
+            fullName: data.fullName || '',
+            telephone: data.telephone || '',
+            address: data.address || '',
+            newfullName: ''
+          });
           setCargando(false);
         } else {
           // Si el token falló, limpiamos todo y fuera
@@ -78,6 +90,118 @@ function Sesion() {
     }
   };
 
+  const [formPassword, setFormPassword] = useState({
+    oldPassword: "",
+    newPassword: ""
+  });
+
+  const [casasUser, setCasas] = useState({ casas: null })
+  const dispositivosAsociadosCasas = async () => {
+
+    if (casasUser.casas == null) {
+
+      const respuesta = await fetch(`${API_URL}/home/`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (respuesta.ok) {
+        let casasList = await respuesta.json();
+
+        const casasConDispositivos = await Promise.all(
+          casasList.map(async (casa) => {
+            const respuestaCasa = await fetch(`${API_URL}/home/${casa.id}/devices`, {
+              method: 'GET',
+              headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            });
+
+            let dispositivos = [];
+            if (respuestaCasa.ok) {
+              const data = await respuestaCasa.json();
+              // Aseguramos que sea un array
+              dispositivos = Array.isArray(data) ? data : [];
+            }
+
+            // Devolvemos el objeto casa YA con sus dispositivos
+            return {
+              id: casa.id,
+              nombreCasa: casa.name,
+              dispositivos: dispositivos
+            };
+          })
+        );
+
+        setCasas(casasConDispositivos);
+        console.log(casasConDispositivos);
+      }
+    }
+  };
+
+  const cambiarPassword = async () => {
+    const regexContrasena = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+    // LEEMOS DIRECTAMENTE DEL ESTADO
+    const { oldPassword, newPassword } = formPassword;
+
+    if (newPassword.match(regexContrasena)) {
+      try {
+        const respuesta = await fetch(`${API_URL}/auth/change-password`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
+          body: JSON.stringify({
+            "oldPassword": oldPassword,
+            "newPassword": newPassword
+          })
+        });
+
+        if (respuesta.ok) {
+          alert("Contraseña cambiada con éxito");
+          setPopupActivo(null); // Cerramos el popup
+          setFormPassword({ oldPassword: "", newPassword: "" }); // Limpiamos inputs
+        } else {
+          alert("Error al cambiar la contraseña:" + respuesta.statusText);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      alert("La contraseña no es válida (Mín 8 caracteres, 1 Mayus, 1 Num)");
+    }
+  };
+
+
+
+  const editarDatos = async () => {
+
+    const { newfullName, telephone, address } = datosEditables;
+    const token = localStorage.getItem('token');
+    console.log(datosEditables);
+    const respuesta = await fetch(`${API_URL}/profiles/${jwtUsuario.uuid}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        "fullName": newfullName,
+        "telephone": telephone,
+        "address": address
+      })
+    });
+
+    if (respuesta.ok) {
+      alert("Datos cambiados con exito");
+      setDatosEditables({ fullName: datosEditables.newfullName, newfullName: "" });
+    } else {
+      alert("error al modificar los datos: " + respuesta.status);
+
+    }
+  };
   // Datos del acordeón (se mantienen igual)
   const datosFaq = [
 
@@ -133,7 +257,7 @@ function Sesion() {
 
   // Si está cargando la API, mostramos un mensaje
   if (cargando) {
-    return <div style={{ textAlign: 'center', marginTop: '50px' }}>Verificando credenciales...</div>;
+    return <div style={{ textAlign: 'center', marginTop: '250px' }}>Verificando credenciales...</div>;
   }
 
   return (
@@ -142,26 +266,31 @@ function Sesion() {
       <div className="vista-perfil">
         <div className="lateral-grid">
           <p onClick={() => setPopupActivo('pago')}>Método de pago</p>
-          <p onClick={() => setPopupActivo('dispositivos')}>Dispositivos asociados</p>
+          <p onClick={() => { dispositivosAsociadosCasas(); setPopupActivo('dispositivos'); }}>Dispositivos asociados</p>
           <p onClick={manejarLogout}>Cerrar sesión</p>
         </div>
 
         <div className="info-general-acc">
-          <img src={logo} alt="Perfil"></img>
+          <img src={logo} alt="Perfil" />
 
-            <p className="plan-select">Plan seleccionado: default</p>
+          {/* Este párrafo ocupa el 30vw según tu CSS, actuando como cabecera interna */}
+          <p className="plan-select">
+            Plan seleccionado: {datosUsuario?.planName || 'Básico'}
+          </p>
 
-          {/* USAMOS LOS DATOS QUE VIENEN DE LA API */}
-          <p className="plan-select">Plan seleccionado: {datosUsuario?.planName || 'Básico'}</p>
-          <p><strong>{datosUsuario?.fullName || 'Usuario'}</strong></p>
-          <p><strong>{jwtUsuario.username || 'Usuario'}</strong></p>
-          <p>Correo: {jwtUsuario.email || 'No disponible'}</p>
+          {/* Datos principales: se repartirán de dos en dos por el width: 15vw */}
+          <p>Nombre y apellidos: <br /> <strong id="fullNameText">{datosUsuario?.fullName || 'Usuario'}</strong></p>
+          <p>Usuario: <br /> <strong>{jwtUsuario.username || 'Usuario'}</strong></p>
 
-          <p>Teléfono: {datosUsuario?.telephone || 'Sin teléfono'}</p>
+          <p>Correo: <br /> <strong style={{ fontSize: '0.8rem' }}>{jwtUsuario.email || 'No disponible'}</strong></p>
+          <p>Teléfono: <br /> <strong id="telfText">{datosUsuario?.telephone || 'Sin teléfono'}</strong></p>
 
-          <div>
+          <p style={{ width: '30vw' }}>Dirección: <br /> <strong id="addressText">{datosUsuario?.address || 'Sin dirección'}</strong></p>
+
+          {/* Contenedor de botones al final */}
+          <div className="container-btns">
             <button className="btn btn-delete">Eliminar cuenta</button>
-            <button className="btn btn-edit">Editar</button>
+            <button className="btn btn-edit" onClick={() => setPopupActivo('editarPerfil')}>Editar</button>
           </div>
         </div>
 
@@ -172,39 +301,106 @@ function Sesion() {
         </div>
         {/**dispositivos asociados */}
         <Popup isOpen={popupActivo === 'dispositivos'} onClose={cerrarPopup}>
-          <h2>Dispositivos Conectados</h2>
-          <ul>
-            <li>Gestiona tus dispositivos desde aquí.</li>
-          </ul>
+          <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>Mis Espacios</h2>
+
+          <div className="lista-casas-scroll">
+            {casasUser && casasUser.length > 0 ? (
+              casasUser.map((casa) => (
+                <div key={casa.id} className="casa-card">
+
+                  {/* Cabecera de la Casa */}
+                  <div className="casa-header">
+                    <span className="casa-titulo">
+                      {casa.nombreCasa}
+                    </span>
+                    <span style={{ fontSize: '0.8rem', color: '#888' }}>
+                      {casa.dispositivos?.length || 0} dispositivos
+                    </span>
+                  </div>
+
+                  {/* Grid de Dispositivos */}
+                  <div className="dispositivos-grid">
+                    {casa.dispositivos && casa.dispositivos.length > 0 ? (
+                      casa.dispositivos.map((dispositivo) => (
+                        <div key={dispositivo.id} className="dispositivo-card">
+                          <div className="status-dot" title="Conectado"></div>
+                          <div className="device-icon">🔌</div>
+                          <span className="device-name">
+                            {dispositivo.customName || dispositivo.name}
+                          </span>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="empty-state">
+                        No hay dispositivos vinculados
+                      </div>
+                    )}
+                  </div>
+
+                </div>
+              ))
+            ) : (
+              <div style={{ textAlign: 'center', padding: '20px', color: '#666' }}>
+                <p>Cargando tus espacios inteligentes...</p>
+              </div>
+            )}
+          </div>
         </Popup>
-      {/* Popup de MÉTODOS DE PAGO */}
-      <Popup isOpen={popupActivo === 'pago'} onClose={cerrarPopup}>
-        <h2>Métodos de Pago (EN DESARROLLO)</h2>
-        <p>Aquí aparecerán tus tarjetas guardadas.</p>
-        <button className="btn">Añadir tarjeta</button>
-      </Popup>
+        {/* Popup de MÉTODOS DE PAGO */}
+        <Popup isOpen={popupActivo === 'pago'} onClose={cerrarPopup}>
+          <h2>Métodos de Pago (EN DESARROLLO)</h2>
+          <p>Aquí aparecerán tus tarjetas guardadas.</p>
+          <button className="btn">Añadir tarjeta</button>
+        </Popup>
 
-      {/* Popup de DISPOSITIVOS */}
-      <Popup isOpen={popupActivo === 'dispositivos'} onClose={cerrarPopup}>
-        <h2>Dispositivos Conectados</h2>
-        <ul>
-          <li>iPhone de Juan</li>
-          <li>Samsung TV Salón</li>
-        </ul>
-      </Popup>
+        {/* Popup de SERVICIOS */}
+        <Popup isOpen={popupActivo === 'servicios'} onClose={cerrarPopup}>
+          <h2>Historial de Técnicos</h2>
+          <p>No tienes reparaciones pendientes.</p>
+        </Popup>
 
-      {/* Popup de SERVICIOS */}
-      <Popup isOpen={popupActivo === 'servicios'} onClose={cerrarPopup}>
-        <h2>Historial de Técnicos</h2>
-        <p>No tienes reparaciones pendientes.</p>
-      </Popup>
+        {/* Popup de CONTRASEÑA */}
+        <Popup isOpen={popupActivo === 'password'} onClose={cerrarPopup}>
+          <h2>Cambiar Contraseña</h2>
+          <input type="password" placeholder="Antigua contraseña" onChange={(e) => setFormPassword({
+            ...formPassword,//para que no cambie el valor de la otra variable
+            oldPassword: e.target.value
+          })} />
+          <input type="password" placeholder="Nueva contraseña" onChange={(e) => setFormPassword({
+            ...formPassword,//para que no cambie el valor de la otra variable
+            newPassword: e.target.value
+          })} />
+          <button className="btn" onClick={cambiarPassword}>Guardar</button>
+        </Popup>
 
-       {/* Popup de CONTRASEÑA */}
-       <Popup isOpen={popupActivo === 'password'} onClose={cerrarPopup}>
-        <h2>Cambiar Contraseña</h2>
-        <input type="password" placeholder="Nueva contraseña"/>
-        <button className="btn">Guardar</button>
-      </Popup>
+        {/* Popup de MÉTODOS DE PAGO */}
+        <Popup isOpen={popupActivo === 'editarPerfil'} onClose={cerrarPopup}>
+          <div className="forms-popUp">
+
+            <h2>Editar datos personales</h2>
+            <label>Nombre y apellidos:</label>
+            <input type="text" placeholder={datosEditables.fullName}
+
+              onChange={(e) => setDatosEditables({
+                ...datosEditables,//para que no cambie el valor de la otra variable
+                newfullName: e.target.value
+              })} />
+
+            <label>Teléfono:</label>
+            <input type="text" value={datosEditables.telephone} placeholder="telefono" onChange={(e) => setDatosEditables({
+              ...datosEditables,//para que no cambie el valor de la otra variable
+              telephone: e.target.value
+            })} />
+
+            <label>Dirección:</label>
+            <input type="text" value={datosEditables.address} placeholder="direccion" onChange={(e) => setDatosEditables({
+              ...datosEditables,//para que no cambie el valor de la otra variable
+              address: e.target.value
+            })} />
+
+            <button className="btn" onClick={editarDatos}>Guardar Cambios</button>
+          </div>
+        </Popup>
       </div>
 
       <div className="section-preguntas-frecuentes">
